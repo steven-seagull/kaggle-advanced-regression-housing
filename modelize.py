@@ -88,7 +88,7 @@ predictions = np.exp(predictions)
 house_prices_test_df = pd.read_csv(
     "datasets/test.csv")
 house_prices_test_df["SalePrice"] = predictions
-house_prices_test_df.set_index("Id", inplace=True)
-house_prices_test_df[["Id", "SalePrice"]].to_csv("submission.csv")
+submission = house_prices_test_df[["Id", "SalePrice"]]
+submission.to_csv("submission.csv", index=False)
 history_df = pd.DataFrame(fitted_model.history)
 history_df.loc[:, ['loss', 'val_loss']].plot(title="Cross-entropy")
