@@ -3,7 +3,7 @@ from tensorflow.keras.callbacks import EarlyStopping
 from tensorflow.keras import layers
 from tensorflow import keras
 import pandas as pd
-import matplotlib
+import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.impute import SimpleImputer
@@ -79,6 +79,8 @@ fitted_model = model.fit(
     callbacks=[early_stopping]
 )
 
+model.save("keras_sequential_model")
+
 test_x = preprocessor.transform(test_x)
 print(x.shape)
 print(test_x.shape)
@@ -91,4 +93,5 @@ house_prices_test_df["SalePrice"] = predictions
 submission = house_prices_test_df[["Id", "SalePrice"]]
 submission.to_csv("submission.csv", index=False)
 history_df = pd.DataFrame(fitted_model.history)
-history_df.loc[:, ['loss', 'val_loss']].plot(title="Cross-entropy")
+history_df.loc[:, ['loss', 'val_loss']].plot(title="Loss of model")
+plt.show()
